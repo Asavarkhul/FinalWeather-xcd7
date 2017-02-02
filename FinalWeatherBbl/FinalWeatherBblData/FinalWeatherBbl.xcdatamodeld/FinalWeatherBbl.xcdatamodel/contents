@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Xcode 7.0">
+    <entity name="City" representedClassName="City" syncable="YES">
+        <attribute name="cityUri" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="humidity" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="libel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pressure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="temp" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="temp_max" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="temp_min" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="todayDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="weatherDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weatherIcon" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weatherID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weatherMain" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="windDeg" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="windSpeed" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="cityWeatherForecasts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Forecast" inverseName="city" inverseEntity="Forecast" syncable="YES"/>
+    </entity>
+    <entity name="Forecast" representedClassName="Forecast" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="dayIndex" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayMonthYearString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="dayString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hourString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="libel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="temp_max" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="temp_min" optional="YES" attributeType="Double" defaultValueString="0" syncable="YES"/>
+        <attribute name="uri" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weatherIcon" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="city" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="City" inverseName="cityWeatherForecasts" inverseEntity="City" syncable="YES"/>
+    </entity>
+    <fetchRequest name="allForecast" entity="Forecast"/>
+    <fetchRequest name="cityForCityID" entity="City" predicateString="id == $id"/>
+    <fetchRequest name="cityForCityUri" entity="City" predicateString="cityUri == $cityUri"/>
+    <fetchRequest name="daysForecasts" entity="Forecast" predicateString="dayIndex == $dayIndex AND ( date == $now OR date &gt; $now )"/>
+    <fetchRequest name="forecastForForecastUri" entity="Forecast" predicateString="uri == $uri"/>
+    <fetchRequest name="todayForecasts" entity="Forecast" predicateString="dayMonthYearString == $dayMonthYearString AND ( date &gt; $now OR date == $now )"/>
+    <elements>
+        <element name="City" positionX="-63" positionY="-18" width="128" height="330"/>
+        <element name="Forecast" positionX="-360" positionY="54" width="128" height="210"/>
+    </elements>
+</model>
